@@ -1,0 +1,52 @@
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+long duracion = pulseIn(echoPin, HIGH);
+int distancia = duracion / 29 / 2;
+return distancia;
+}
+void loop() {
+int distanciaCentral = medirDistancia(trigCentral, echoCentral);
+if (distanciaCentral < distanciaMinima) {
+retroceder();
+delay(200); // Ajusta el tiempo de retroceso según sea necesario
+if (random(2) == 0) {
+girarDerecha();
+} else {
+avanzar();
+}
+}
+
+void avanzar() {
+digitalWrite(IZQ1, HIGH);
+digitalWrite(IZQ2, LOW);
+digitalWrite(DER2, LOW);
+digitalWrite(DER1, HIGH);
+analogWrite(ENA, 90);
+analogWrite(ENB, 90);
+}
+void girarDerecha() {
+digitalWrite(IZQ1, HIGH);
+digitalWrite(IZQ2, LOW);
+digitalWrite(DER2, HIGH);
+digitalWrite(DER1, LOW);
+analogWrite(ENA, 200);
+analogWrite(ENB, 255);
+delay(200); // Ajusta el tiempo de giro según sea necesario
+}
+void girarIzquierda() {
+digitalWrite(IZQ1, LOW);
+digitalWrite(IZQ2, HIGH);
+digitalWrite(DER2, LOW);
+digitalWrite(DER1, HIGH);
+analogWrite(ENA, 255);
+analogWrite(ENB, 200);
+delay(200); // Ajusta el tiempo de giro según sea necesario
+}
+void retroceder() {
+digitalWrite(IZQ1, LOW);
+digitalWrite(IZQ2, HIGH);
+digitalWrite(DER2, HIGH);
+digitalWrite(DER1, LOW);
+analogWrite(ENA, 90);
+analogWrite(ENB, 90);
+}
